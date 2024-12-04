@@ -5,16 +5,27 @@ import Article from "../Article";
 import articles from "../../assets/data/articles";
 
 export default function Main() {
-  const [articleTitleInput, setArticleTitleInput] = useState("");
-  const [articleContentInput, setArticleContentInput] = useState("");
-  const [articleAuthorInput, setArticleAuthorInput] = useState("");
+  const defaultArticle = {
+    title: "",
+    content: "",
+    author: "",
+    image: "",
+    category: "",
+    isPublished: false,
+  };
+
+  const [formData, setformData] = useState(defaultArticle);
 
   const [articlesList, setArticlesList] = useState(articles);
+
+  const handleChange = (e) => {
+    setformData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!articleTitleInput || !articleContentInput || !articleAuthorInput) {
+    if (!formData.title || !formData.author || !formData.content) {
       alert("Completa tutti i campi per creare il nuovo articolo");
       return;
     }
@@ -22,17 +33,16 @@ export default function Main() {
     const updatedList = [
       ...articlesList,
       {
-        title: articleTitleInput,
-        content: articleContentInput,
-        author: articleAuthorInput,
+        title: formData.title,
+        author: formData.author,
+        content: formData.content,
       },
     ];
+
     setArticlesList(updatedList);
 
     /* reset input fields */
-    setArticleTitleInput("");
-    setArticleContentInput("");
-    setArticleAuthorInput("");
+    setformData(defaultArticle);
   };
 
   const deleteArticle = (index) => {
@@ -72,10 +82,9 @@ export default function Main() {
                     type="text"
                     className="form-control"
                     id="articleTitle"
-                    value={articleTitleInput}
-                    onChange={(e) => {
-                      setArticleTitleInput(e.target.value);
-                    }}
+                    value={formData.title}
+                    onChange={handleChange}
+                    name="title"
                   />
                 </div>
               </div>
@@ -90,10 +99,9 @@ export default function Main() {
                     type="text"
                     className="form-control"
                     id="articleAuthor"
-                    value={articleAuthorInput}
-                    onChange={(e) => {
-                      setArticleAuthorInput(e.target.value);
-                    }}
+                    value={formData.author}
+                    onChange={handleChange}
+                    name="author"
                   />
                 </div>
               </div>
@@ -108,10 +116,9 @@ export default function Main() {
                     type="text"
                     className="form-control"
                     id="articleContent"
-                    value={articleContentInput}
-                    onChange={(e) => {
-                      setArticleContentInput(e.target.value);
-                    }}
+                    value={formData.content}
+                    onChange={handleChange}
+                    name="content"
                   />
                 </div>
               </div>
