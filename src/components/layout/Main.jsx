@@ -3,6 +3,7 @@ import { useState } from "react";
 import Article from "../Article";
 
 import articles from "../../assets/data/articles";
+import { categories } from "../../assets/data/articleCategories";
 
 export default function Main() {
   const defaultArticle = {
@@ -25,10 +26,17 @@ export default function Main() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.author || !formData.content) {
+    if (
+      !formData.title ||
+      !formData.author ||
+      !formData.content ||
+      formData.category === ""
+    ) {
       alert("Completa tutti i campi per creare il nuovo articolo");
       return;
     }
+
+    if (!formData.image) formData.image = "img-default.svg";
 
     const updatedList = [
       ...articlesList,
@@ -36,8 +44,12 @@ export default function Main() {
         title: formData.title,
         author: formData.author,
         content: formData.content,
+        image: formData.image,
+        category: formData.category,
       },
     ];
+
+    console.log(updatedList);
 
     setArticlesList(updatedList);
 
@@ -106,8 +118,8 @@ export default function Main() {
                 </div>
               </div>
 
+              {/* INPUT FOR ARTICLE CONTENT */}
               <div className="col-12">
-                {/* INPUT FOR ARTICLE CONTENT */}
                 <div className="mb-3">
                   <label htmlFor="articleContent" className="form-label">
                     Contenuto articolo
@@ -120,6 +132,47 @@ export default function Main() {
                     onChange={handleChange}
                     name="content"
                   />
+                </div>
+              </div>
+
+              {/* INPUT FOR ARTICLE IMAGE */}
+              <div className="col">
+                <div className="mb-3">
+                  <label htmlFor="articleImage" className="form-label">
+                    Immagine
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="articleImage"
+                    value={formData.image}
+                    onChange={handleChange}
+                    name="image"
+                  />
+                </div>
+              </div>
+
+              {/* INPUT FOR ARTICLE CATEGORY */}
+              <div className="col">
+                <div className="mb-3">
+                  <label htmlFor="articleCategory" className="form-label">
+                    Categoria
+                  </label>
+
+                  <select
+                    id="articleCategory"
+                    className="form-select"
+                    value={formData.category}
+                    onChange={handleChange}
+                    name="category"
+                  >
+                    <option value="">Scegli la categoria dell'articolo</option>
+                    {categories.map((category, index) => (
+                      <option key={index} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
@@ -140,6 +193,8 @@ export default function Main() {
               title={article.title}
               content={article.content}
               author={article.author}
+              image={article.image}
+              category={article.category}
               deleteFunction={deleteArticle}
               modifyFunction={modifyArticle}
             ></Article>

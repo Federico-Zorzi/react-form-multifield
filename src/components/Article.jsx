@@ -5,6 +5,8 @@ export default function Article({
   title,
   content,
   author,
+  image,
+  category,
   deleteFunction,
   modifyFunction,
 }) {
@@ -14,9 +16,20 @@ export default function Article({
     <article>
       <div className="card my-3">
         <div className="card-body d-flex flex-column">
-          <h5 className="card-title fw-semibold">{title}</h5>
-          <p className="card-text">{content}</p>
-          <span className="fst-italic">{author}</span>
+          <div className="card-user ms-auto">
+            <span className="username fst-italic me-3">{author}</span>
+            <img src={image} alt="" />
+          </div>
+
+          <hr />
+
+          <div className="card-article">
+            <h5 className="card-title fw-semibold">{title}</h5>
+            <span className="badge text-bg-success category me-3">
+              {category}
+            </span>
+            <p className="card-text">{content}</p>
+          </div>
 
           {/* DELETE ARTICLE FUNCTION */}
           <div className="delete-article mt-1 ms-auto">
