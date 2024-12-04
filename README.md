@@ -7,4 +7,5 @@ Ampliare l'esercizio precedente aggiungendo, nel form, i campi per immagine, con
 
 BONUS
 Aggiungere uno useEffect che mostri un alert quando l’utente clicca sull’apposita checkbox per pubblicare un articolo.
-Aggiungere l'associazione con dei possibili tags (lista di checkbox)Buon lavoro!
+Aggiungere l'associazione con dei possibili tags (lista di checkbox)
+Buon lavoro!

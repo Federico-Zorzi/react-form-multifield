@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Article from "../Article";
 
@@ -80,6 +80,10 @@ export default function Main() {
     /* reset input fields */
     setModifyTitleInput("");
   };
+
+  useEffect(() => {
+    if (formData.isPublished) alert("L'articolo verrà pubblicato");
+  }, [formData.isPublished]);
 
   return (
     <main>
