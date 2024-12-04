@@ -20,7 +20,10 @@ export default function Main() {
   const [articlesList, setArticlesList] = useState(articles);
 
   const handleChange = (e) => {
-    setformData({ ...formData, [e.target.name]: e.target.value });
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
+    setformData({ ...formData, [e.target.name]: value });
   };
 
   const handleSubmit = (e) => {
@@ -46,6 +49,7 @@ export default function Main() {
         content: formData.content,
         image: formData.image,
         category: formData.category,
+        isPublished: formData.isPublished,
       },
     ];
 
@@ -175,6 +179,25 @@ export default function Main() {
                   </select>
                 </div>
               </div>
+
+              {/* INPUT FOR ARTICLE PUBLISHED */}
+              <div className="col">
+                <div className="mb-3">
+                  <label htmlFor="articlePublish" className="form-label">
+                    Pubblica
+                  </label>
+                  <div>
+                    <input
+                      id="articlePublish"
+                      className="form-check-input mt-0"
+                      type="checkbox"
+                      checked={formData.isPublished}
+                      onChange={handleChange}
+                      name="isPublished"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* BUTTON FOR SUBMIT */}
@@ -186,19 +209,21 @@ export default function Main() {
 
         {/* ARTICLE SECTION */}
         <section className="article-section">
-          {articlesList.map((article, index) => (
-            <Article
-              key={index}
-              index={index}
-              title={article.title}
-              content={article.content}
-              author={article.author}
-              image={article.image}
-              category={article.category}
-              deleteFunction={deleteArticle}
-              modifyFunction={modifyArticle}
-            ></Article>
-          ))}
+          {articlesList
+            .filter((article) => article.isPublished)
+            .map((article, index) => (
+              <Article
+                key={index}
+                index={index}
+                title={article.title}
+                content={article.content}
+                author={article.author}
+                image={article.image}
+                category={article.category}
+                deleteFunction={deleteArticle}
+                modifyFunction={modifyArticle}
+              ></Article>
+            ))}
         </section>
       </div>
     </main>
