@@ -13,7 +13,7 @@ export default function Main() {
     image: "",
     category: "",
     isPublished: false,
-    tags: [""],
+    tags: [],
   };
 
   const [formData, setformData] = useState(defaultArticle);
@@ -25,6 +25,14 @@ export default function Main() {
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     setformData({ ...formData, [e.target.name]: value });
+  };
+
+  const handleTagsChange = (e) => {
+    let newTags = e.target.checked
+      ? [...formData.tags, e.target.value]
+      : formData.tags.filter((tag) => tag != e.target.value);
+
+    setformData({ ...formData, tags: newTags });
   };
 
   const handleSubmit = (e) => {
@@ -51,6 +59,7 @@ export default function Main() {
         image: formData.image,
         category: formData.category,
         isPublished: formData.isPublished,
+        tags: formData.tags,
       },
     ];
 
@@ -205,7 +214,7 @@ export default function Main() {
               </div>
 
               {/* TO DEVELOP - INPUT FOR ARTICLE TAGS */}
-              {/*               <div className="col">
+              <div className="col">
                 <label htmlFor="articleTags" className="form-label">
                   Tags
                 </label>
@@ -221,41 +230,51 @@ export default function Main() {
                     className="btn-check"
                     id="btncheck1"
                     autoComplete="off"
+                    value="Tag 1"
+                    checked={formData.tags.includes("Tag 1")}
+                    onChange={handleTagsChange}
+                    name="tags"
                   />
                   <label
                     className="btn btn-outline-primary"
                     htmlFor="btncheck1"
                   >
-                    Checkbox 1
+                    Tag 1
                   </label>
 
                   <input
                     type="checkbox"
                     className="btn-check"
                     id="btncheck2"
-                    autoComplete="off"
+                    value="Tag 2"
+                    checked={formData.tags.includes("Tag 2")}
+                    onChange={handleTagsChange}
+                    name="tags"
                   />
                   <label
                     className="btn btn-outline-primary"
                     htmlFor="btncheck2"
                   >
-                    Checkbox 2
+                    Tag 2
                   </label>
 
                   <input
                     type="checkbox"
                     className="btn-check"
                     id="btncheck3"
-                    autoComplete="off"
+                    value="Tag 3"
+                    checked={formData.tags.includes("Tag 3")}
+                    onChange={handleTagsChange}
+                    name="tags"
                   />
                   <label
                     className="btn btn-outline-primary"
                     htmlFor="btncheck3"
                   >
-                    Checkbox 3
+                    Tag 3
                   </label>
                 </div>
-              </div> */}
+              </div>
             </div>
 
             {/* BUTTON FOR SUBMIT */}
@@ -278,6 +297,7 @@ export default function Main() {
                 author={article.author}
                 image={article.image}
                 category={article.category}
+                tags={article.tags}
                 deleteFunction={deleteArticle}
                 modifyFunction={modifyArticle}
               ></Article>

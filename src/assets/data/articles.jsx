@@ -7,6 +7,7 @@ export default [
     image: "photo1.jpg",
     category: "Categoria1",
     isPublished: true,
+    tags: [],
   },
   {
     title: "Article 2",
@@ -16,5 +17,6 @@ export default [
     image: "photo2.jpg",
     category: "Categoria2",
     isPublished: true,
+    tags: [],
   },
 ];

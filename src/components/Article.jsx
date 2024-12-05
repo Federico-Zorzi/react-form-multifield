@@ -7,6 +7,7 @@ export default function Article({
   author,
   image,
   category,
+  tags,
   deleteFunction,
   modifyFunction,
 }) {
@@ -29,6 +30,11 @@ export default function Article({
               {category}
             </span>
             <p className="card-text">{content}</p>
+            {tags.map((tag, index) => (
+              <span key={index} className="badge text-bg-primary category me-3">
+                #{tag}
+              </span>
+            ))}
           </div>
 
           {/* DELETE ARTICLE FUNCTION */}
